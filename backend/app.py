@@ -22,11 +22,14 @@ db = TeammatesDatabase()
 # Статические файлы фронтенда
 @app.route('/')
 def serve_frontend():
-    return send_from_directory('../frontend', 'index.html')
+    return send_from_directory('templates', 'index.html')
 
 @app.route('/<path:path>')
 def serve_static(path):
-    return send_from_directory('../frontend', path)
+    try:
+        return send_from_directory('templates', path)
+    except:
+        return send_from_directory('../frontend', path)
 
 # API маршруты
 
