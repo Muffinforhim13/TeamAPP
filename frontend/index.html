@@ -18,45 +18,71 @@
     </div>
 
     <!-- Экран создания профиля -->
-    <div id="profile-setup" class="screen">
+    <div id="profile-setup" class="screen active">
         <div class="container">
-            <h2>📸 Создай свой профиль</h2>
+            <h2>🎮 Создай свой профиль</h2>
             <form id="profile-form">
-                <!-- Загрузка фото -->
-                <div class="form-group photo-upload">
-                    <label>Твое фото:</label>
-                    <div class="photo-upload-area" id="photo-upload-area">
-                        <div class="upload-placeholder" id="upload-placeholder">
-                            <span class="upload-icon">📷</span>
-                            <p>Нажми для загрузки фото</p>
-                            <small>JPG, PNG до 5MB</small>
-                        </div>
-                        <img id="preview-photo" class="preview-photo hidden" alt="Превью">
-                    </div>
-                    <input type="file" id="photo-input" accept="image/*" style="display: none;" required>
-                </div>
-                
                 <div class="form-group">
-                    <label>Имя (необязательно):</label>
-                    <input type="text" id="real-name" placeholder="Как к тебе обращаться?">
+                    <label>Игровой ник:</label>
+                    <input type="text" id="display-name" placeholder="Твой ник в играх" required>
                 </div>
                 
                 <div class="form-group">
                     <label>Возраст:</label>
-                    <input type="number" id="age" placeholder="Введи свой возраст" min="16" max="100" required>
-                    <small class="form-hint">От 16 до 100 лет</small>
+                    <select id="age-group" required>
+                        <option value="">Выбери возраст</option>
+                        <option value="16-20">16-20</option>
+                        <option value="21-25">21-25</option>
+                        <option value="26-30">26-30</option>
+                        <option value="31-35">31-35</option>
+                        <option value="36+">36+</option>
+                    </select>
                 </div>
                 
                 <div class="form-group">
                     <label>О себе:</label>
-                    <textarea id="bio" placeholder="Расскажи о себе, стиле игры, целях..." maxlength="200" required></textarea>
-                    <div class="char-counter">0/200</div>
+                    <textarea id="bio" placeholder="Расскажи о себе, стиле игры, целях..." maxlength="200"></textarea>
                 </div>
                 
                 <div class="form-group">
-                    <label>Discord ник:</label>
-                    <input type="text" id="discord" placeholder="username" required>
-                    <small class="form-hint">Без @ и #, только никнейм</small>
+                    <label>Основные игры:</label>
+                    <div id="games-selector" class="games-grid">
+                        <button type="button" class="game-btn" data-game="cs2">
+                            <span class="game-emoji">🔫</span>
+                            <span class="game-name">Counter-Strike 2</span>
+                        </button>
+                        <button type="button" class="game-btn" data-game="valorant">
+                            <span class="game-emoji">🎯</span>
+                            <span class="game-name">Valorant</span>
+                        </button>
+                        <button type="button" class="game-btn" data-game="dota2">
+                            <span class="game-emoji">⚔️</span>
+                            <span class="game-name">Dota 2</span>
+                        </button>
+                        <button type="button" class="game-btn" data-game="lol">
+                            <span class="game-emoji">🛡️</span>
+                            <span class="game-name">League of Legends</span>
+                        </button>
+                        <button type="button" class="game-btn" data-game="mlbb">
+                            <span class="game-emoji">📱</span>
+                            <span class="game-name">Mobile Legends</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Что ищешь:</label>
+                    <select id="looking-for" required>
+                        <option value="">Выбери цель</option>
+                        <option value="Команда">🏆 Команда для рейтинга</option>
+                        <option value="Дуо">👥 Напарник для дуо</option>
+                        <option value="Компания">😄 Компания для фана</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Discord:</label>
+                    <input type="text" id="discord" placeholder="Username#1234">
                 </div>
                 
                 <button type="submit" class="btn btn-primary">
