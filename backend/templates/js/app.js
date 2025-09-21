@@ -165,28 +165,15 @@ class TeammatesFinderApp {
     }
     
     async initializeProfileForm() {
-        // Здесь добавим 5 основных игр
+        // Обработчики для кнопок игр уже есть в HTML
         const gamesContainer = document.getElementById('games-selector');
         if (!gamesContainer) return;
         
-        const mainGames = [
-            { name: 'Counter-Strike 2', emoji: '🔫' },
-            { name: 'Dota 2', emoji: '🔴' },
-            { name: 'Valorant', emoji: '⚡' },
-            { name: 'Mobile Legends', emoji: '⚔️' },
-            { name: 'League of Legends', emoji: '⚡' }
-        ];
-        
-        gamesContainer.innerHTML = mainGames.map(game => 
-            `<div class="game-option" data-game="${game.name}">
-                ${game.emoji} ${game.name}
-            </div>`
-        ).join('');
-        
         // Добавляем обработчики
         gamesContainer.addEventListener('click', (e) => {
-            if (e.target.classList.contains('game-option')) {
-                this.toggleGameSelection(e.target);
+            const gameBtn = e.target.closest('.game-btn');
+            if (gameBtn) {
+                this.toggleGameSelection(gameBtn);
             }
         });
     }
@@ -228,41 +215,41 @@ class TeammatesFinderApp {
     async handleProfileSubmit() {
         try {
             // Проверяем обязательные поля
-            const photo = this.userPhoto;
-            const realName = document.getElementById('real-name').value;
-            const age = parseInt(document.getElementById('age').value);
+            const displayName = document.getElementById('display-name').value;
+            const ageGroup = document.getElementById('age-group').value;
             const bio = document.getElementById('bio').value;
+            const lookingFor = document.getElementById('looking-for').value;
             const discord = document.getElementById('discord').value;
             
-            if (!photo) {
-                this.showError('Загрузите фото');
+            if (!displayName.trim()) {
+                this.showError('Укажите игровой ник');
                 return;
             }
             
-            if (!age || age < 16 || age > 100) {
-                this.showError('Укажите возраст от 16 до 100 лет');
+            if (!ageGroup) {
+                this.showError('Выберите возрастную группу');
                 return;
             }
             
-            if (!bio.trim()) {
-                this.showError('Расскажите о себе');
+            if (!lookingFor) {
+                this.showError('Выберите что ищете');
                 return;
             }
             
-            if (!discord.trim()) {
-                this.showError('Укажите Discord ник');
+            if (this.selectedGames.length === 0) {
+                this.showError('Выберите хотя бы одну игру');
                 return;
             }
             
             this.showLoading();
             
             const profileData = {
-                photo: photo,
-                real_name: realName || null,
-                age: age,
-                bio: bio.trim(),
-                discord_username: discord.trim(),
-                preferred_games: this.selectedGames || []
+                display_name: displayName.trim(),
+                age_group: ageGroup,
+                bio: bio.trim() || null,
+                preferred_games: this.selectedGames,
+                looking_for: lookingFor,
+                discord_tag: discord.trim() || null
             };
             
             const result = await api.createProfile(profileData);
@@ -273,7 +260,7 @@ class TeammatesFinderApp {
                 
                 setTimeout(() => {
                     this.showScreen('main-app');
-                    this.updateMatchesCount();
+                    this.loadPlayers();
                 }, 1500);
             }
             
