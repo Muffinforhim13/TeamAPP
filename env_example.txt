@@ -1,0 +1,8 @@
+# Скопируй этот файл как .env и замени YOUR_BOT_TOKEN_HERE на реальный токен
+
+# Токен Telegram бота (получить у @BotFather)
+BOT_TOKEN=YOUR_BOT_TOKEN_HERE
+
+# Дополнительные настройки (опционально)
+# STEAM_API_KEY=your_steam_api_key_here
+

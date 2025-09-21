@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>TeammatesFinder</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Экран создания профиля -->
+    <div id="profile-setup" class="screen active">
+        <div class="container">
+            <h2>🎮 Создай свой профиль</h2>
+            <form id="profile-form">
+                <div class="form-group">
+                    <label>Игровой ник:</label>
+                    <input type="text" id="display-name" placeholder="Твой ник в играх" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Возраст:</label>
+                    <select id="age-group" required>
+                        <option value="">Выбери возраст</option>
+                        <option value="16-20">16-20</option>
+                        <option value="21-25">21-25</option>
+                        <option value="26-30">26-30</option>
+                        <option value="31-35">31-35</option>
+                        <option value="36+">36+</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>О себе:</label>
+                    <textarea id="bio" placeholder="Расскажи о себе, стиле игры, целях..." maxlength="200"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Основные игры:</label>
+                    <div id="games-selector" class="games-grid">
+                        <!-- Игры добавятся через JS -->
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Что ищешь:</label>
+                    <select id="looking-for" required>
+                        <option value="">Выбери цель</option>
+                        <option value="Команда">🏆 Команда для рейтинга</option>
+                        <option value="Дуо">👥 Напарник для дуо</option>
+                        <option value="Компания">😄 Компания для фана</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Discord:</label>
+                    <input type="text" id="discord" placeholder="Username#1234">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    Создать профиль 🚀
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Главный экран со свайпами -->
+    <div id="main-app" class="screen">
+        <header class="app-header">
+            <h1>🎮 TeammatesFinder</h1>
+            <div class="header-actions">
+                <button id="matches-btn" class="icon-btn">
+                    <span class="icon">💕</span>
+                    <span class="badge" id="matches-count">0</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="cards-container">
+            <div id="cards-stack">
+                <!-- Карточки игроков -->
+            </div>
+            
+            <div id="no-cards" class="no-cards hidden">
+                <div class="no-cards-content">
+                    <h3>🎉 Все игроки просмотрены!</h3>
+                    <p>Это демо версия TeammatesFinder</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button id="dislike-btn" class="action-btn dislike">
+                <span class="icon">❌</span>
+            </button>
+            <button id="info-btn" class="action-btn info">
+                <span class="icon">ℹ️</span>
+            </button>
+            <button id="like-btn" class="action-btn like">
+                <span class="icon">❤️</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Экран мэтчей -->
+    <div id="matches-screen" class="screen">
+        <header class="screen-header">
+            <button id="back-from-matches" class="back-btn">← Назад</button>
+            <h2>💕 Твои мэтчи</h2>
+        </header>
+        <div class="container">
+            <div id="matches-list"></div>
+        </div>
+    </div>
+
+    <!-- Уведомление о мэтче -->
+    <div id="match-notification" class="match-notification">
+        <div class="match-content">
+            <h3>🎉 Это мэтч!</h3>
+            <p>У вас взаимный лайк!</p>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

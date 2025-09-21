@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>TeammatesFinder</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Экран загрузки -->
+    <div id="loading" class="screen active">
+        <div class="loading-content">
+            <h1>🎮 TeammatesFinder</h1>
+            <div class="spinner"></div>
+            <p>Загружаем твоих будущих тиммейтов...</p>
+        </div>
+    </div>
+
+    <!-- Экран создания профиля -->
+    <div id="profile-setup" class="screen">
+        <div class="container">
+            <h2>🎮 Создай свой профиль</h2>
+            <form id="profile-form">
+                <div class="form-group">
+                    <label>Игровой ник:</label>
+                    <input type="text" id="display-name" placeholder="Твой ник в играх" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Возраст:</label>
+                    <select id="age-group" required>
+                        <option value="">Выбери возраст</option>
+                        <option value="16-20">16-20</option>
+                        <option value="21-25">21-25</option>
+                        <option value="26-30">26-30</option>
+                        <option value="31-35">31-35</option>
+                        <option value="36+">36+</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>О себе:</label>
+                    <textarea id="bio" placeholder="Расскажи о себе, стиле игры, целях..." maxlength="200"></textarea>
+                    <div class="char-counter">0/200</div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Основные игры:</label>
+                    <div id="games-selector" class="games-grid">
+                        <!-- Игры будут добавлены через JS -->
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Что ищешь:</label>
+                    <select id="looking-for" required>
+                        <option value="">Выбери цель</option>
+                        <option value="Команда">🏆 Команда для рейтинга</option>
+                        <option value="Дуо">👥 Напарник для дуо</option>
+                        <option value="Компания">😄 Компания для фана</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Discord (необязательно):</label>
+                    <input type="text" id="discord" placeholder="Username#1234">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    Создать профиль 🚀
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Главный экран со свайпами -->
+    <div id="main-app" class="screen">
+        <!-- Заголовок -->
+        <header class="app-header">
+            <h1>🎮 TeammatesFinder</h1>
+            <div class="header-actions">
+                <button id="matches-btn" class="icon-btn">
+                    <span class="icon">💕</span>
+                    <span class="badge" id="matches-count">0</span>
+                </button>
+                <button id="profile-btn" class="icon-btn">
+                    <span class="icon">👤</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Карточки игроков -->
+        <div class="cards-container">
+            <div id="cards-stack">
+                <!-- Карточки будут добавляться через JS -->
+            </div>
+            
+            <!-- Сообщение когда нет карточек -->
+            <div id="no-cards" class="no-cards hidden">
+                <div class="no-cards-content">
+                    <h3>🎉 Все игроки просмотрены!</h3>
+                    <p>Загляни в мэтчи или попробуй позже</p>
+                    <button id="refresh-btn" class="btn btn-secondary">
+                        🔄 Обновить
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Кнопки действий -->
+        <div class="action-buttons">
+            <button id="dislike-btn" class="action-btn dislike">
+                <span class="icon">❌</span>
+            </button>
+            <button id="info-btn" class="action-btn info">
+                <span class="icon">ℹ️</span>
+            </button>
+            <button id="like-btn" class="action-btn like">
+                <span class="icon">❤️</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Экран мэтчей -->
+    <div id="matches-screen" class="screen">
+        <header class="screen-header">
+            <button id="back-from-matches" class="back-btn">← Назад</button>
+            <h2>💕 Твои мэтчи</h2>
+        </header>
+        <div class="container">
+            <div id="matches-list">
+                <!-- Мэтчи будут добавлены через JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно профиля -->
+    <div id="profile-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>👤 Твой профиль</h3>
+            <div id="profile-info">
+                <!-- Информация о профиле -->
+            </div>
+            <button id="edit-profile-btn" class="btn btn-secondary">
+                ✏️ Редактировать
+            </button>
+        </div>
+    </div>
+
+    <!-- Модальное окно подробной информации об игроке -->
+    <div id="player-info-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="player-detailed-info">
+                <!-- Подробная информация об игроке -->
+            </div>
+            <div class="modal-actions">
+                <button id="modal-dislike" class="btn btn-dislike">❌ Пропустить</button>
+                <button id="modal-like" class="btn btn-like">❤️ Лайк</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Уведомление о мэтче -->
+    <div id="match-notification" class="match-notification">
+        <div class="match-content">
+            <h3>🎉 Это мэтч!</h3>
+            <p>У вас взаимный лайк! Теперь вы можете общаться</p>
+            <button id="view-match" class="btn btn-primary">Посмотреть контакты</button>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/swiper.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
